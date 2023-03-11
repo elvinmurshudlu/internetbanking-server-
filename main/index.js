@@ -1,13 +1,24 @@
 const express = require("express")
 const app = express()
-const router = require("./routes/login")
+const router = require("./routes/loginRegister")
+
+const session = require('express-session');
+
+
+
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "*");
     next();
-  });
- 
+  }); 
+
+app.use(session({
+  secret: 'güvenli bir anahtar',
+  resave: false,
+  saveUninitialized: true
+}));
+
 
 // app.use(express.json())
 
