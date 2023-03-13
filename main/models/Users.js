@@ -8,6 +8,19 @@ const Users = sequelize.define("Users",{
         primaryKey:true,
         
     },
+
+    name:{
+        type:DataTypes.STRING,
+        allowNull:false
+    }
+    ,
+    surname:{
+        type:DataTypes.STRING,
+        allowNull:false
+    }
+    ,
+
+
     email:{
         type:DataTypes.STRING,
         primaryKey:true,
@@ -28,23 +41,28 @@ async function createUser(){
     console.log("Users yaradildi")
 
 
-    await Users.bulkCreate([{
-        
+    await Users.bulkCreate([
+        {
+        name:"Elvin",
+        surname:"Murshudlu",
         email:"elvin@gmail.com",
         password:"elvin2001"
     },
     {
-        
+        name:"Elvin",
+        surname:"Murshudlu",
         email:"elvin2001@gmail.com",
         password:"elvin2001"
     },
     {
-        
+        name:"Elvin",
+        surname:"Murshudlu",
         email:"elvin20012001@gmail.com",
         password:"elvin2001"
     },
     {
-        
+        name:"Elvin",
+        surname:"Murshudlu",
         email:"murshudlu@gmail.com",
         password:"elvin2001"
     }])
