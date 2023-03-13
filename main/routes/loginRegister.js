@@ -29,7 +29,7 @@ router.post("/register",(req,res)=>{
 })
 
 router.post("/login",(req,res)=>{
-    console.log("Data from React")
+    console.log("İstek atan cihaz---------------------",req.headers['user-agent'])
     let data = []
     req.on("data",(chunk)=>{
         data.push(chunk)
@@ -75,7 +75,7 @@ router.post("/getdata",(req,res)=>{
     })
     
     req.on("end",async ()=>{       
-        cookie = Buffer.concat(cookie).toString()        
+        cookie = Buffer.concat(cookie).toString()      
 
         if(cookie){
             let data = await UserControl.findUserBySession(cookie.trim() != "" && cookie) 

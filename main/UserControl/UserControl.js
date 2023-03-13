@@ -71,13 +71,13 @@ class UserControl{
 
     static async findUserBySession(session){
 
-        console.log("session^^^^^^^^^^^^^^^",session)
+        
         if(session ){
             let sessionUser = await this.authorizedSession(session)
 
             let user = await Users.findByPk(sessionUser.dataValues.userId)
 
-             console.log("Sesiion User +++++++++++++++=============&&&&&&",user.dataValues)
+        
 
             return user.dataValues
         }
