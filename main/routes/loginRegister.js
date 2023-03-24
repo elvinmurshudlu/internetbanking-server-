@@ -2,7 +2,6 @@ const { json } = require("body-parser");
 const express = require("express")
 const router = express.Router()
 // const Users = require("../models/Users")
-const Sessions = require("../models/Sessions")
 
 const UserControl = require("../UserControl/UserControl")
 
@@ -29,28 +28,21 @@ router.post("/register",(req,res)=>{
 })
 
 router.post("/login",(req,res)=>{
-
-
-    
-
     
     console.log("İstek atan cihaz---------------------",req.headers['user-agent'])
     let data = []
     req.on("data",(chunk)=>{
         data.push(chunk)
         
-    })
-    
-    req.on("end",async ()=>{
-       
+    })    
+    req.on("end",async ()=>{       
         let result  = Buffer.concat(data).toString()
-        let userInformation = JSON.parse(result)
-        console.log(userInformation)
-        // let response = await findUser(userInformation)
+        let userInformation = JSON.parse(result)       
+        
         let response = await UserControl.findUser(userInformation)  
-        console.log("response---------------------",response)
+        
         res.send(response ? response.sessionCode : response)
-        // res.send(response)
+        
         
 
     })

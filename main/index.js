@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
-const router = require("./routes/loginRegister")
+const loginRegister = require("./routes/loginRegister")
+const requireCards = require("./routes/requestCards")
 
 const session = require('express-session');
 
@@ -22,7 +23,9 @@ app.use(session({
 
 // app.use(express.json())
 
-app.use(router)
+app.use(loginRegister)
+
+app.use(requireCards)
 
 app.listen(3200,()=>{
     console.log("Server started 3200")

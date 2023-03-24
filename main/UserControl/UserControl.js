@@ -1,5 +1,7 @@
 const Users = require("../models/Users")
 const Sessions = require("../models/Sessions")
+const Cards = require("../models/Cards")
+const Transactions = require("../models/Transactions")
 
 
 class UserControl{
@@ -74,10 +76,7 @@ class UserControl{
         
         if(session ){
             let sessionUser = await this.authorizedSession(session)
-
-            let user = await Users.findByPk(sessionUser.dataValues.userId)
-
-        
+            let user = await Users.findByPk(sessionUser.dataValues.userId)       
 
             return user.dataValues
         }
@@ -88,7 +87,14 @@ class UserControl{
 
     }
 
-    
+    static async findUserCards(id){
+        return await Cards.findAll({where:{userId:id}})
+
+    }
+    static async findUserTransactions(id){
+        return await Transactions.findAll({where:{userId:id}})
+
+    }
 
     
     
