@@ -11,18 +11,30 @@ const {DataTypes} = require("sequelize")
     }
     ,
     amount:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false
     },
-    cardId:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
-    userId:{
+    fromUserId:{
         type:DataTypes.INTEGER,
         allowNull:false
 
+    },
+    toUserId:{
+      
+      type:DataTypes.STRING,
+      allowNull:false
     }
+    ,
+    fromCard:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
+    ,
+    toCard:{
+      type:DataTypes.STRING,
+      allowNull:true
+    }
+
 
 
     
@@ -35,45 +47,63 @@ async function create(){
 
 
     {
-      amount:200,
-      userId:1,
-      cardId:1  
+      amount:"200",
+      fromUserId:1,
+      fromCard:"12345678",
+      toCard:"789798",
+      toUserId:2 
     },
     {
-        amount:123,
-        userId:1,
-        cardId:1  
+        amount:"123",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2  
       },
       {
-        amount:6743,
-        userId:1,
-        cardId:1  
+        amount:"6743",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2
       },
       {
-        amount:200,
-        userId:1,
-        cardId:2  
+        amount:"200",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2
       },
       {
-        amount:200,
-        userId:1,
-        cardId:2  
+        amount:"200",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2
       },
       {
-        amount:865,
-        userId:1,
-        cardId:3  
+        amount:"865",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2
       },
       {
-        amount:90,
-        userId:1,
-        cardId:3  
+        amount:"90",
+        fromUserId:1,
+        fromCard:"12345678",
+        toCard:"789798",
+        toUserId:2
       },
       {
-        amount:21,
-        userId:2,
-        cardId:3  
+        amount:"00000000",
+        fromUserId:2,
+        fromCard:"12345678",
+        toCard:"789798",
+        cardId:3  ,
+        toUserId:1
       },
+      
 
    ])
 }

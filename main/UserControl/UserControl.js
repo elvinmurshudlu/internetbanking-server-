@@ -3,6 +3,10 @@ const Sessions = require("../models/Sessions")
 const Cards = require("../models/Cards")
 const Transactions = require("../models/Transactions")
 
+const { Op } = require('sequelize');
+
+
+
 
 class UserControl{
 
@@ -92,7 +96,17 @@ class UserControl{
 
     }
     static async findUserTransactions(id){
-        return await Transactions.findAll({where:{userId:id}})
+        return await Transactions.findAll({where:{
+            [Op.or]: [
+              { fromUserId: id },
+              { toUserId: id }
+            ]
+          }})
+
+        //   return await Transactions.findAll({where:
+            
+        //       { fromUserId: id }
+        //     })
 
     }
 
