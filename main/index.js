@@ -12,7 +12,8 @@ const Transactions = require("./models/Transactions")
 const WebSocket = require("ws")
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
     next();
   }); 
@@ -49,11 +50,8 @@ wss.on('connection', async (ws, req) => {
   console.log(JSON.stringify(data))
   console.log("Test Sequelize--------------------------------")
 
-
-
-
-
   let cookie = req.headers.cookie
+  console.log("Cookie",req.headers);
   let user = await UserControl.findUserBySession(cookie.split("=")[1])
 
   Transactions.afterCreate((transaction, options) => {

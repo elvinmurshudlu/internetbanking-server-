@@ -32,6 +32,9 @@ const Cards = sequelize.define("Cards",{
     expireDate:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    type:{
+        type:DataTypes.STRING
     }
     
 })
@@ -48,7 +51,8 @@ async function createCard(){
             userId:1,
             amount:3000,
             cvv:321,
-            expireDate:12/34
+            expireDate:"12/34",
+            type:"Virtual"
 
         },
         {
@@ -57,7 +61,8 @@ async function createCard(){
             currency:"USD",
             userId:1,
             cvv:321,
-            expireDate:12/34
+            expireDate:"12/34",
+            type:"Virtual"
 
         },
         {
@@ -67,7 +72,8 @@ async function createCard(){
             userId:1,
             
             cvv:321,
-            expireDate:12/34
+            expireDate:"12/34",
+            type:"Debit"
 
         },
         {
@@ -77,7 +83,8 @@ async function createCard(){
             userId:1,
             
             cvv:321,
-            expireDate:12/34
+            expireDate:"12/34",
+            type:"Credit"
 
         },
     ])

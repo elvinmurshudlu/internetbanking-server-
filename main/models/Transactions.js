@@ -33,7 +33,12 @@ const {DataTypes} = require("sequelize")
     toCard:{
       type:DataTypes.STRING,
       allowNull:true
+    },
+    currency:{
+      type:DataTypes.STRING,
+      allowNull:false
     }
+    
 
 
 
@@ -47,61 +52,86 @@ async function create(){
 
 
     {
-      amount:"200",
+      amount:"-200",
       fromUserId:1,
-      fromCard:"12345678",
+      fromCard:"1234567812345678",
       toCard:"789798",
-      toUserId:2 
+      toUserId:2 ,
+      currency:"AZN"
     },
     {
-        amount:"123",
+        amount:"-123",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"1234567812345678",
         toCard:"789798",
         toUserId:2  
+        ,
+      currency:"AZN"
       },
       {
-        amount:"6743",
+        amount:"-6743",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"1234567812345678",
         toCard:"789798",
         toUserId:2
+        ,
+      currency:"AZN"
       },
       {
-        amount:"200",
+        amount:"-200",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"4169653478906776",
         toCard:"789798",
         toUserId:2
+        ,
+      currency:"AZN"
       },
       {
-        amount:"200",
+        amount:"-200",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"4169653478906776",
         toCard:"789798",
         toUserId:2
+        ,
+      currency:"AZN"
       },
       {
-        amount:"865",
+        amount:"-865",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"4169653478906776",
         toCard:"789798",
         toUserId:2
+        ,
+      currency:"USD"
       },
       {
-        amount:"90",
+        amount:"-90",
         fromUserId:1,
-        fromCard:"12345678",
+        fromCard:"7865785423097865",
         toCard:"789798",
         toUserId:2
+        ,
+      currency:"AZN"
       },
       {
-        amount:"00000000",
+        amount:"1000000",
         fromUserId:2,
-        fromCard:"12345678",
+        fromCard:"7865785423097865",
         toCard:"789798",
         cardId:3  ,
         toUserId:1
+        ,
+      currency:"AZN"
+      },
+      {
+        amount:"-1000000",
+        fromUserId:2,
+        fromCard:"7865785423097865",
+        toCard:"789798",
+        cardId:3  ,
+        toUserId:1
+        ,
+      currency:"AZN"
       },
       
 
