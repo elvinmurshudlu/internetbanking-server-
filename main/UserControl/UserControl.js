@@ -103,10 +103,18 @@ class UserControl{
             ]
           }})
 
-        //   return await Transactions.findAll({where:
-            
-        //       { fromUserId: id }
-        //     })
+        
+
+    }
+
+    static async addNewCard(dataIncludeSession){
+        let user = await this.findUserBySession(dataIncludeSession.session)
+        await Cards.create({
+            cardNumber:dataIncludeSession.number,
+            userId:user.id,
+            cvv:dataIncludeSession.cvv,
+            expireDate:dataIncludeSession.date
+        })
 
     }
 

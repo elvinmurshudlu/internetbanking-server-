@@ -54,7 +54,7 @@ async function create(){
     {
       amount:"-200",
       fromUserId:1,
-      fromCard:"1234567812345678",
+      fromCard:"4146763952104222",
       toCard:"789798",
       toUserId:2 ,
       currency:"AZN"
@@ -62,7 +62,7 @@ async function create(){
     {
         amount:"-123",
         fromUserId:1,
-        fromCard:"1234567812345678",
+        fromCard:"4146763952104222",
         toCard:"789798",
         toUserId:2  
         ,
@@ -71,7 +71,7 @@ async function create(){
       {
         amount:"-6743",
         fromUserId:1,
-        fromCard:"1234567812345678",
+        fromCard:"4146763952104222",
         toCard:"789798",
         toUserId:2
         ,
@@ -80,7 +80,7 @@ async function create(){
       {
         amount:"-200",
         fromUserId:1,
-        fromCard:"4169653478906776",
+        fromCard:"5240809893438567",
         toCard:"789798",
         toUserId:2
         ,
@@ -89,7 +89,7 @@ async function create(){
       {
         amount:"-200",
         fromUserId:1,
-        fromCard:"4169653478906776",
+        fromCard:"5240809893438567",
         toCard:"789798",
         toUserId:2
         ,
@@ -98,7 +98,7 @@ async function create(){
       {
         amount:"-865",
         fromUserId:1,
-        fromCard:"4169653478906776",
+        fromCard:"4292570350861523",
         toCard:"789798",
         toUserId:2
         ,
@@ -107,7 +107,7 @@ async function create(){
       {
         amount:"-90",
         fromUserId:1,
-        fromCard:"7865785423097865",
+        fromCard:"4292570350861523",
         toCard:"789798",
         toUserId:2
         ,
@@ -116,7 +116,7 @@ async function create(){
       {
         amount:"1000000",
         fromUserId:2,
-        fromCard:"7865785423097865",
+        fromCard:"5235415323584025",
         toCard:"789798",
         cardId:3  ,
         toUserId:1
@@ -126,7 +126,7 @@ async function create(){
       {
         amount:"-1000000",
         fromUserId:2,
-        fromCard:"7865785423097865",
+        fromCard:"5235415323584025",
         toCard:"789798",
         cardId:3  ,
         toUserId:1

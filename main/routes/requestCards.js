@@ -25,20 +25,42 @@ router.post("/getCards",(req,res)=>{
         })
 })
 
-router.post("/getTransactions",(req,res)=>{
+
+router.post("/addNewCard", (req,res)=>{
+        let header = req.headers
         let data = []
         req.on("data",(chunk)=>{
                 data.push(chunk)
-
         })
 
-        req.on("end",async ()=>{
-                let currentUser = Buffer.concat(data).toString()
-                let userId = (await UserControl.findUserBySession(currentUser)).id
-                let transactions = await UserControl.findUserTransactions(userId)
-                res.send(transactions)
+        req.on("end",async()=>{
+                let result = Buffer.concat(data).toString()
+                let parsedData = JSON.parse(result)
+                // let user = await UserControl.findUserBySession(parsedData.session)
+                await UserControl.addNewCard(parsedData)
+
+                // console.log(result,user.id);
+
         })
+        res.send(true)
+
+        console.log(header);
 })
+
+// router.post("/getTransactions",(req,res)=>{
+//         let data = []
+//         req.on("data",(chunk)=>{
+//                 data.push(chunk)
+
+//         })
+
+//         req.on("end",async ()=>{
+//                 let currentUser = Buffer.concat(data).toString()
+//                 let userId = (await UserControl.findUserBySession(currentUser)).id
+//                 let transactions = await UserControl.findUserTransactions(userId)
+//                 res.send(transactions)
+//         })
+// })
 
 
 

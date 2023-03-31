@@ -19,6 +19,7 @@ const Cards = sequelize.define("Cards",{
     },
     currency:{
         type:DataTypes.STRING,
+        defaultValue:"AZN"
     },
     amount:{
         type:DataTypes.INTEGER,
@@ -34,7 +35,8 @@ const Cards = sequelize.define("Cards",{
         allowNull:false
     },
     type:{
-        type:DataTypes.STRING
+        type:DataTypes.STRING,
+        defaultValue:"Debit"
     }
     
 })
@@ -46,7 +48,7 @@ async function createCard(){
     await Cards.bulkCreate([
         {
            
-            cardNumber:"1234567812345678",
+            cardNumber:"4146763952104222",
             currency:"AZN",
             userId:1,
             amount:3000,
@@ -57,7 +59,7 @@ async function createCard(){
         },
         {
             
-            cardNumber:"4169653478906776",
+            cardNumber:"5240809893438567",
             currency:"USD",
             userId:1,
             cvv:321,
@@ -67,7 +69,7 @@ async function createCard(){
         },
         {
             
-            cardNumber:"1234542389450909",
+            cardNumber:"4292570350861523",
             currency:"EUR",
             userId:1,
             
@@ -78,7 +80,7 @@ async function createCard(){
         },
         {
             
-            cardNumber:"7865785423097865",
+            cardNumber:"5235415323584025",
             currency:"AZN",
             userId:1,
             
