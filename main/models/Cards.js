@@ -22,9 +22,9 @@ const Cards = sequelize.define("Cards",{
         defaultValue:"AZN"
     },
     amount:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false,
-        defaultValue:1000
+        defaultValue:"1000"
     },
     cvv:{
         type:DataTypes.INTEGER,
@@ -37,6 +37,27 @@ const Cards = sequelize.define("Cards",{
     type:{
         type:DataTypes.STRING,
         defaultValue:"Debit"
+    },
+    isAvailable:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
+    },
+    security:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
+    },
+    pin:{
+        type:DataTypes.STRING,
+        defaultValue:"1234"
+    },
+    accountNumber:{
+        type:DataTypes.STRING
+        ,
+        defaultValue:"UKC000000000000001200642"
+    },
+    cardHolder:{
+        type:DataTypes.STRING,
+        defaultValue:"Elvin Murshudlu"
     }
     
 })

@@ -12,7 +12,7 @@ class UserControl{
 
     static async  findUser(userInformation){    
         const searchResult = (await Users.findOne({where:{email:userInformation.email}}))
-        console.log("Istifadeci melumati",searchResult)
+        // console.log("Istifadeci melumati",searchResult)
         if(searchResult == null){
             return false //!istifadeci tapilmadI bununla bagli geri mesaj gonder
         }    
@@ -40,7 +40,7 @@ class UserControl{
             email:userInformation.email,
             password:userInformation.password
         })
-        console.log("User Elave olundu ::::::")
+        // console.log("User Elave olundu ::::::")
         return true
     
     }
@@ -107,6 +107,16 @@ class UserControl{
 
     }
 
+    static async findUserCard(data){
+        let user = await UserControl.findUserBySession(data.session)
+        let card = await Cards.findOne({where:{"id":data.cardId}})
+        if(card && card.userId == user.id){
+            return card
+        }
+        return false      
+
+    }
+
     static async addNewCard(dataIncludeSession){
         let user = await this.findUserBySession(dataIncludeSession.session)
         await Cards.create({
@@ -116,6 +126,14 @@ class UserControl{
             expireDate:dataIncludeSession.date
         })
 
+    }
+
+    static async setUserCardAvailability(message){
+        await Cards.update({ isAvailable: message.boolean }, {
+            where: {
+              id: message.cardId
+            }
+          });
     }
 
     

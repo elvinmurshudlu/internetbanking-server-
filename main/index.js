@@ -47,12 +47,12 @@ wss.on('connection', async (ws, req) => {
 
   console.log("Test Sequelize--------------------------------")
   let data = await UserControl.findUserTransactions(1)
-  console.log(JSON.stringify(data))
-  console.log("Test Sequelize--------------------------------")
+  // console.log(JSON.stringify(data))
+  // console.log("Test Sequelize--------------------------------")
 
   // let cookie = req.headers.cookie
   let cookie = req.url
-  console.log("Cookie",req.url);
+  // console.log("Cookie",req.url);
   let user = await UserControl.findUserBySession(cookie.split("=")[1])
 
   Transactions.afterCreate((transaction, options) => {

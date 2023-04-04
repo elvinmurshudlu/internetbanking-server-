@@ -27,7 +27,7 @@ router.post("/getCards",(req,res)=>{
 
 
 router.post("/addNewCard", (req,res)=>{
-        let header = req.headers
+      
         let data = []
         req.on("data",(chunk)=>{
                 data.push(chunk)
@@ -44,23 +44,46 @@ router.post("/addNewCard", (req,res)=>{
         })
         res.send(true)
 
-        console.log(header);
+      
 })
 
-// router.post("/getTransactions",(req,res)=>{
-//         let data = []
-//         req.on("data",(chunk)=>{
-//                 data.push(chunk)
+router.post("/getCardDetails",(req,res)=>{
+        let data = []
+        req.on("data",(chunk)=>{
+                data.push(chunk)
+        })
 
-//         })
+        req.on("end",async()=>{
+                // console.log("-----------------------------------------------------------------------------+++++++++++++++++++++++++++++++++++++++++++++++=");
+                let result = Buffer.concat(data).toString()
+                let parsedData = JSON.parse(result)
+                // console.log("ParsedDAta =====================",parsedData);
+                let response = await UserControl.findUserCard(parsedData)
+                
+                
 
-//         req.on("end",async ()=>{
-//                 let currentUser = Buffer.concat(data).toString()
-//                 let userId = (await UserControl.findUserBySession(currentUser)).id
-//                 let transactions = await UserControl.findUserTransactions(userId)
-//                 res.send(transactions)
-//         })
-// })
+                // console.log(result,user.id);
+
+                res.send(response)
+        })
+
+})
+
+router.post("/setCardUsage",(req,res)=>{
+        let message = []
+        req.on("data",(chunk)=>{
+                message.push(chunk)
+        })
+
+        req.on("end",async ()=>{
+                let parsedMessage = JSON.parse(Buffer.concat(message).toString())
+                await UserControl.setUserCardAvailability(parsedMessage)
+                res.send(true)
+
+        })
+        
+})
+
 
 
 
