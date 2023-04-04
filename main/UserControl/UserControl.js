@@ -2,6 +2,7 @@ const Users = require("../models/Users")
 const Sessions = require("../models/Sessions")
 const Cards = require("../models/Cards")
 const Transactions = require("../models/Transactions")
+const Recipients = require("../models/Recipients")
 
 const { Op } = require('sequelize');
 
@@ -9,6 +10,10 @@ const { Op } = require('sequelize');
 
 
 class UserControl{
+    static async findCurrentUser(session){
+        return await this.authorizedSession(session)
+
+    }
 
     static async  findUser(userInformation){    
         const searchResult = (await Users.findOne({where:{email:userInformation.email}}))
@@ -106,6 +111,16 @@ class UserControl{
         
 
     }
+    static async addUserTransaction(amount,fromUserId,fromCard,toCard,currency,toUserId){
+        await Transactions.create({
+            amount:amount,
+            fromUserId:fromUserId,
+            fromCard:fromCard,
+            toCard:toCard,
+            toUserId:toUserId ,
+            currency:currency
+          })
+    }
 
     static async findUserCard(data){
         let user = await UserControl.findUserBySession(data.session)
@@ -134,6 +149,36 @@ class UserControl{
               id: message.cardId
             }
           });
+    }
+
+    static async findUserRecipients(userId){
+        return await Recipients.findAll({where:{userId:userId}})
+    }
+
+    static async findCardByCardNumber(cardNumber){
+        return await Cards.findOne({where:{cardNumber:cardNumber}})
+    }
+
+    static async moneyTransfer(data){
+
+        let toUserAvailable = false
+
+        let fromUser = await this.findUserBySession(data.session) //!Transfer edən useri tapmaq üçün
+        let fromUserCard = await this.findCardByCardNumber(data.fromCard) //! trasfer edənin card hesabını tapmaq üçün
+        let toUserCard = await this.findCardByCardNumber(data.toCard)  //! transfer olunanın card hesabini tapmaq üçün
+        if(toUserCard){
+             toUserAvailable = toUserCard.userId
+        } //! transfer olunanın userini tapmaq üçün
+        let currency = fromUserCard.currency
+        console.log(data,"Data Amount =====================",data.amount);
+        console.log("fromUser",fromUser);
+        console.log("toUser",toUserAvailable);
+        await this.addUserTransaction(data.amount,fromUser.id,data.fromCard,data.toCard,currency,toUserAvailable)
+
+        //! create transaction for sender 
+        
+        
+
     }
 
     

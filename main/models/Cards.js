@@ -71,7 +71,7 @@ async function createCard(){
            
             cardNumber:"4146763952104222",
             currency:"AZN",
-            userId:1,
+            userId:2,
             amount:3000,
             cvv:321,
             expireDate:"12/34",
@@ -82,7 +82,7 @@ async function createCard(){
             
             cardNumber:"5240809893438567",
             currency:"USD",
-            userId:1,
+            userId:2,
             cvv:321,
             expireDate:"12/34",
             type:"Virtual"

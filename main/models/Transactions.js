@@ -22,7 +22,7 @@ const {DataTypes} = require("sequelize")
     toUserId:{
       
       type:DataTypes.STRING,
-      allowNull:false
+      // allowNull:false
     }
     ,
     fromCard:{
@@ -37,8 +37,16 @@ const {DataTypes} = require("sequelize")
     currency:{
       type:DataTypes.STRING,
       allowNull:false
+    },
+    transferType:{
+      type:DataTypes.STRING,
+      defaultValue:"Bank Transfer"
     }
-    
+    ,
+    transferHeader:{
+      type:DataTypes.STRING,
+      defaultValue:"Money Transfer to Elvin"
+    }
 
 
 
@@ -125,7 +133,7 @@ async function create(){
       },
       {
         amount:"-1000000",
-        fromUserId:2,
+        fromUserId:3,
         fromCard:"5235415323584025",
         toCard:"789798",
         cardId:3  ,

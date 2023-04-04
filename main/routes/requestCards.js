@@ -1,8 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const Cards = require("../models/Cards")
-const Transactions = require("../models/Transactions")
+
 
 const UserControl = require("../UserControl/UserControl")
 

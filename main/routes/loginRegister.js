@@ -59,7 +59,7 @@ router.post("/logged",(req,res)=>{
         session = Buffer.concat(session).toString()
         let isAuthorized =  await UserControl.authorizedSession(session)
         console.log(session)
-        res.send(isAuthorized ? isAuthorized.sessionCode  : isAuthorized)
+        res.send(isAuthorized ? isAuthorized.sessionCode : isAuthorized)
     })
 
 })
@@ -86,6 +86,18 @@ router.post("/getdata",(req,res)=>{
 
     })
 
+})
+
+router.post("/currentUserId",(req,res)=>{
+    let data = []
+    req.on("data",(chunk)=>{
+        data.push(chunk)
+    })
+    req.on("end",async ()=>{
+        let parsedData = Buffer.concat(data).toString()
+        let userId = (await UserControl.findCurrentUser(parsedData)).userId
+        res.send({"userId":userId})
+    })
 })
 
 
