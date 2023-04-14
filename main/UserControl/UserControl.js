@@ -111,14 +111,17 @@ class UserControl{
         
 
     }
-    static async addUserTransaction(amount,fromUserId,fromCard,toCard,currency,toUserId){
+    static async addUserTransaction(amount,fromUserId,fromCard,toCard,currency,toUserId,senderName,recipientName){
+        
         await Transactions.create({
             amount:amount,
             fromUserId:fromUserId,
             fromCard:fromCard,
             toCard:toCard,
             toUserId:toUserId ,
-            currency:currency
+            currency:currency,
+            senderName:senderName,
+            recipientName:recipientName
           })
     }
 
@@ -132,6 +135,7 @@ class UserControl{
 
     }
 
+
     static async addNewCard(dataIncludeSession){
         let user = await this.findUserBySession(dataIncludeSession.session)
         await Cards.create({
@@ -143,6 +147,7 @@ class UserControl{
 
     }
 
+
     static async setUserCardAvailability(message){
         await Cards.update({ isAvailable: message.boolean }, {
             where: {
@@ -151,13 +156,21 @@ class UserControl{
           });
     }
 
+
     static async findUserRecipients(userId){
         return await Recipients.findAll({where:{userId:userId}})
     }
 
+
     static async findCardByCardNumber(cardNumber){
         return await Cards.findOne({where:{cardNumber:cardNumber}})
     }
+
+    static async findRecipientByCardNumber(cardNumber){
+        return await Recipients.findOne({where:{accountNumber:cardNumber}})
+
+    }
+
 
     static async moneyTransfer(data){
 
@@ -168,16 +181,43 @@ class UserControl{
         let toUserCard = await this.findCardByCardNumber(data.toCard)  //! transfer olunanın card hesabini tapmaq üçün
         if(toUserCard){
              toUserAvailable = toUserCard.userId
+             await Cards.update({ amount:(+toUserCard.amount - + data.amount).toString() }, {
+                where: {
+                  cardNumber: data.toCard
+                }
+              });
+
         } //! transfer olunanın userini tapmaq üçün
         let currency = fromUserCard.currency
-        console.log(data,"Data Amount =====================",data.amount);
-        console.log("fromUser",fromUser);
-        console.log("toUser",toUserAvailable);
-        await this.addUserTransaction(data.amount,fromUser.id,data.fromCard,data.toCard,currency,toUserAvailable)
+
+        let recipient = await this.findRecipientByCardNumber(data.toCard)
+        console.log("REcipient Sequized================",recipient);
+        
+        await this.addUserTransaction(data.amount,fromUser.id,data.fromCard,data.toCard,currency,toUserAvailable,fromUser.name,recipient.recipientName)
+        await Cards.update({ amount:(+fromUserCard.amount + + data.amount).toString() }, {
+            where: {
+              cardNumber: data.fromCard
+            }
+          });
 
         //! create transaction for sender 
         
         
+
+    }
+
+    static async addRecipient(data){
+        console.log("addrecipiant========",data);
+        let user = await this.findUserBySession(data.session)
+        let recipientCard = this.findCardByCardNumber(data.cardNumber)
+
+        await Recipients.create({
+            userId: user.id,
+            recipientName:data.recipientName,
+            currency:recipientCard ? recipientCard.currency : "AZN",
+            accountNumber: data.cardNumber
+
+        })
 
     }
 

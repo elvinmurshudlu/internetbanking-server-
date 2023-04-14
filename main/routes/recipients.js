@@ -35,4 +35,18 @@ router.post("/moneyTransfer",(req,res)=>{
     })
 })
 
+router.post("/addRecipient",(req,res)=>{
+    let data = []
+    req.on("data",(chunk)=>{
+        data.push(chunk)
+    })
+
+    req.on("end",async ()=>{
+        let parsedData = JSON.parse(Buffer.concat(data).toString())
+        console.log("PArsed DAta =======================",parsedData);
+        await UserControl.addRecipient(parsedData)
+        res.send()
+    })
+})
+
 module.exports = router

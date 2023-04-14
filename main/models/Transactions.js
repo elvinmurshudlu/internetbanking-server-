@@ -19,6 +19,17 @@ const {DataTypes} = require("sequelize")
         allowNull:false
 
     },
+    senderName:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
+    ,
+    recipientName:{
+      type:DataTypes.STRING,
+      defaultValue:"Recipient"
+    }
+    ,
+
     toUserId:{
       
       type:DataTypes.STRING,
@@ -45,7 +56,7 @@ const {DataTypes} = require("sequelize")
     ,
     transferHeader:{
       type:DataTypes.STRING,
-      defaultValue:"Money Transfer to Elvin"
+      defaultValue:"Money Transfer"
     }
 
 
@@ -65,7 +76,8 @@ async function create(){
       fromCard:"4146763952104222",
       toCard:"789798",
       toUserId:2 ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
     },
     {
         amount:"-123",
@@ -74,7 +86,8 @@ async function create(){
         toCard:"789798",
         toUserId:2  
         ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       {
         amount:"-6743",
@@ -83,7 +96,8 @@ async function create(){
         toCard:"789798",
         toUserId:2
         ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       {
         amount:"-200",
@@ -92,7 +106,8 @@ async function create(){
         toCard:"789798",
         toUserId:2
         ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       {
         amount:"-200",
@@ -101,7 +116,8 @@ async function create(){
         toCard:"789798",
         toUserId:2
         ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       {
         amount:"-865",
@@ -110,7 +126,8 @@ async function create(){
         toCard:"789798",
         toUserId:2
         ,
-      currency:"USD"
+      currency:"USD",
+      senderName:"Elvin"
       },
       {
         amount:"-90",
@@ -119,27 +136,19 @@ async function create(){
         toCard:"789798",
         toUserId:2
         ,
-      currency:"AZN"
-      },
-      {
-        amount:"1000000",
-        fromUserId:2,
-        fromCard:"5235415323584025",
-        toCard:"789798",
-        cardId:3  ,
-        toUserId:1
-        ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       {
         amount:"-1000000",
-        fromUserId:3,
+        fromUserId:1,
         fromCard:"5235415323584025",
         toCard:"789798",
         cardId:3  ,
-        toUserId:1
+        toUserId:3
         ,
-      currency:"AZN"
+      currency:"AZN",
+      senderName:"Elvin"
       },
       
 
