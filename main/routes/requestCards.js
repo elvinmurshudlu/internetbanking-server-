@@ -84,6 +84,41 @@ router.post("/setCardUsage",(req,res)=>{
 })
 
 
+router.post("/markAsRead",(req,res)=>{
+        let message = []
+        req.on("data",(chunk)=>{
+                message.push(chunk)
+        })
+
+        req.on("end",async ()=>{
+                let parsedMessage = JSON.parse(Buffer.concat(message).toString())
+                UserControl.markAsRead(parsedMessage)
+                console.log(parsedMessage)
+                res.send(true)
+
+        })
+
+})
+
+
+router.post("/markAllRead",(req,res)=>{
+        let message = []
+        req.on("data",(chunk)=>{
+                message.push(chunk)
+        })
+
+        req.on("end",async ()=>{
+                let parsedMessage = Buffer.concat(message).toString()
+                UserControl.markAllread(parsedMessage)
+                console.log(parsedMessage)
+                res.send(true)
+
+        })
+
+})
+
+
+
 
 
 module.exports = router

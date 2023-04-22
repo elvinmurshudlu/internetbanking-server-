@@ -56,26 +56,50 @@ wss.on('connection', async (ws, req) => {
 
   Transactions.afterCreate((transaction, options) => {
     const message = JSON.stringify({ type: 'transaction_created', data: transaction });
-    ws.send(message);
+
+    if(user.id == transaction.fromUserId || user.id == transaction.toUserId){
+      ws.send(message);
+    }
+
+    
   });
 
 
-  ws.on('message',async  (message) => {
-    const decryptedMessage = message.toString('utf-8');
-    const parsedMessage = JSON.parse(decryptedMessage);
+
+
+
+  Transactions.afterUpdate(async (transaction, options) => {
+  console.log('A transaction was updated:', transaction);
+
+  let userTransactions = await UserControl.findUserTransactions(user.id)
+
+  const message = JSON.stringify({ type: 'transaction_updated', data: userTransactions });
+
+  if(user.id == transaction.fromUserId || user.id == transaction.toUserId){
+    ws.send(message);
+  }
+});
+
+
+  
+
+
+  // ws.on('message',async  (message) => {
+  //   const decryptedMessage = message.toString('utf-8');
+  //   const parsedMessage = JSON.parse(decryptedMessage);
     
 
 
-    await Transactions.create({
-      amount:+parsedMessage.data,
-      fromUserId:1,
-      fromCard:"234273",
-      toCardL:"495809",
-      toUserId:3
+  //   await Transactions.create({
+  //     amount:+parsedMessage.data,
+  //     fromUserId:1,
+  //     fromCard:"234273",
+  //     toCardL:"495809",
+  //     toUserId:3
 
-    })
+  //   })
     
-  });  
+  // });  
 
   // let tr = await Transactions.findAll({where:{fromUserId:user.id}})
   let tr = await UserControl.findUserTransactions(user.id)

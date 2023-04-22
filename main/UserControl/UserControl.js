@@ -111,7 +111,7 @@ class UserControl{
         
 
     }
-    static async addUserTransaction(amount,fromUserId,fromCard,toCard,currency,toUserId,senderName,recipientName){
+    static async addUserTransaction(amount,fromUserId,fromCard,toCard,currency,toUserId,senderName,recipientName,transferType){
         
         await Transactions.create({
             amount:amount,
@@ -121,7 +121,8 @@ class UserControl{
             toUserId:toUserId ,
             currency:currency,
             senderName:senderName,
-            recipientName:recipientName
+            recipientName:recipientName,
+            transferType:transferType
           })
     }
 
@@ -193,7 +194,7 @@ class UserControl{
         let recipient = await this.findRecipientByCardNumber(data.toCard)
         console.log("REcipient Sequized================",recipient);
         
-        await this.addUserTransaction(data.amount,fromUser.id,data.fromCard,data.toCard,currency,toUserAvailable,fromUser.name,recipient.recipientName)
+        await this.addUserTransaction(data.amount,fromUser.id,data.fromCard,data.toCard,currency,toUserAvailable,fromUser.name,recipient.recipientName,data.transferType)
         await Cards.update({ amount:(+fromUserCard.amount + + data.amount).toString() }, {
             where: {
               cardNumber: data.fromCard
@@ -218,6 +219,35 @@ class UserControl{
             accountNumber: data.cardNumber
 
         })
+
+    }
+
+
+    static async markAsRead(id){
+        let date = new Date()
+        // await Transactions.update({notification:false,updateAt:date.getDate()},{where:{
+        //     id:id
+        // }})
+
+
+        const transaction = await Transactions.findOne({ where: { id: id } });
+        console.log(transaction);
+        transaction.notification = false; // yaxud dəyişənlərə uyğun olaraq digər məlumatlar
+        await transaction.save(); // dəyişiklikləri bazada saxlamaq üçün update işlədikdən sonra save funksiyasını işlətməlisiniz
+
+
+    }
+
+    static async markAllread(cookie){
+      let user =   await this.findUserBySession(cookie)
+      let transactions = await Transactions.findAll({where:{toUserId:user.id}})
+      
+      transactions.map(async (transaction)=>{
+        transaction.notification = false
+        await transaction.save()
+      })
+
+      
 
     }
 
