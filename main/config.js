@@ -1,10 +1,10 @@
 const config = {
-    db:{
-        host:"localhost",
-        user:"root",
-        password:"elvinmurshudlu",
-        db:"internetbanking"
-    }
+  db: {
+    host: "localhost",
+    user: "root",
+    password: "elvinmurshudlu",
+    db: "internetbanking",
+  },
 }
 
-module.exports =  config
+module.exports = config

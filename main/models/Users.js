@@ -1,84 +1,100 @@
-const {DataTypes} = require("sequelize")
+const { DataTypes } = require("sequelize")
 const sequelize = require("../data/db")
 
-const Users = sequelize.define("Users",{
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement:true,
-        primaryKey:true,
-        
-    },
+const Users = sequelize.define("Users", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
 
-    name:{
-        type:DataTypes.STRING,
-        allowNull:false
-    }
-    ,
-    surname:{
-        type:DataTypes.STRING,
-        allowNull:false
-    }
-    ,
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  surname: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  birth:{
+    type:DataTypes.STRING
+  }
+  ,
+  presentAdress:{
+    type:DataTypes.STRING
 
+  },
+  permanentAdress:{
+    type:DataTypes.STRING
 
-    email:{
-        type:DataTypes.STRING,
-        primaryKey:true,
-        allowNull:false
+  },
+  city:{
+    type:DataTypes.STRING
 
-    },
-    password:{
-        type:DataTypes.STRING,
-        allowNull:false
+  },
+  country:{
+    type:DataTypes.STRING
 
+  },
+  postalCode:{
+    type:DataTypes.STRING
 
-    }
+  },
+  profilePicture:{
+    type:DataTypes.STRING,
+    defaultValue:"noImg.jpeg"
+  }
 })
 
+async function createUser() {
+  await Users.sync({ force: true })
+  console.log("Users yaradildi")
 
-async function createUser(){
-    await Users.sync({force:true})
-    console.log("Users yaradildi")
-
-
-    await Users.bulkCreate([
-        {
-        name:"Elvin",
-        surname:"Murshudlu",
-        email:"elvin@gmail.com",
-        password:"elvin2001"
+  await Users.bulkCreate([
+    {
+      name: "Elvin",
+      surname: "Murshudlu",
+      email: "elvin@gmail.com",
+      password: "elvin2001",
     },
     {
-        name:"Elvin",
-        surname:"Murshudlu",
-        email:"elvin2001@gmail.com",
-        password:"elvin2001"
+      name: "Elvin",
+      surname: "Murshudlu",
+      email: "elvin2001@gmail.com",
+      password: "elvin2001",
     },
     {
-        name:"Elvin",
-        surname:"Murshudlu",
-        email:"elvin20012001@gmail.com",
-        password:"elvin2001"
+      name: "Elvin",
+      surname: "Murshudlu",
+      email: "elvin20012001@gmail.com",
+      password: "elvin2001",
     },
     {
-        name:"Elvin",
-        surname:"Murshudlu",
-        email:"murshudlu@gmail.com",
-        password:"elvin2001"
-    }])
-    // await Users.create({
+      name: "Elvin",
+      surname: "Murshudlu",
+      email: "murshudlu@gmail.com",
+      password: "elvin2001",
+    },
+  ])
+  // await Users.create({
 
-        
-    //     id:1,
-    //     email:"elvin2001@gmail.com",
-    //     password:"elvin2001"
-    
+  //     id:1,
+  //     email:"elvin2001@gmail.com",
+  //     password:"elvin2001"
 
-    // })
+  // })
 
-    console.log("Melumat elave olundu")
-
+  console.log("Melumat elave olundu")
 }
-createUser()
+// createUser()
 
 module.exports = Users
